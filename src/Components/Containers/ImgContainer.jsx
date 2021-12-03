@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 //Components
@@ -24,11 +24,13 @@ const ImgContainer = ({ data, title, handleFetchDataNextPage }) => {
       setIsVisible(entry.isIntersecting);
     };
 
-    const options = {
+    const options = useMemo(()=>{
+      return{
       root: null,
       rootMargin: "0px",
       threshold: 1.0
-    };
+    }
+    },[])
 
    
     useEffect(() => {

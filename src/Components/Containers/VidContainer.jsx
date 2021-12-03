@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useSelector } from "react-redux";
 
 //Components
@@ -15,11 +15,13 @@ const VidContainer = ({ data, title, handleFetchDataNextPage }) => {
     //Redux Hook
     const { favVid } = useSelector(store => store.profile);
 
-    const options = {
+    const options = useMemo(()=>{
+      return{
       root: null,
       rootMargin: "0px",
       threshold: 1.0
-    };
+    }
+    },[])
 
      //Funciones
      const callbackFunction = entries => {
