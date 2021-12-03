@@ -6,6 +6,7 @@ import VidContainer from "../../Components/Containers/VidContainer";
 const VideosRandom = () => {
 
     const [data, setData] = useState(null);
+    const [nextPage, setNextPage] = useState("");
 
     useEffect(() => {
         const query = ["nature", "office", "movies", "animals", "space"];
@@ -13,7 +14,7 @@ const VideosRandom = () => {
         const keyword = query[random];
         const handleFetchToken = async () => {
           const request = await fetch(
-            `https://api.pexels.com/videos/search?query=${keyword}&per_page=20`,
+            `https://api.pexels.com/videos/search?query=${keyword}&per_page=30`,
             {
               headers: {
                 Authorization:
@@ -22,15 +23,31 @@ const VideosRandom = () => {
             }
           );
           const result = await request.json();
-          setData(result);
-          console.log(result)
+          setData(result.videos);
+          setNextPage(result.next_page);
         };
         handleFetchToken();
       }, []);
 
+      const handleFetchDataNextPage = async () => {
+        const request = await fetch(nextPage, {
+          headers: {
+            Authorization:
+              "563492ad6f917000010000014a76ca74704d41e9b50df0fbdb677b24"
+          }
+        });
+        const result = await request.json();
+        setNextPage(result.next_page);
+        setData([...data, ...result.videos]);
+      };
+
     return (
         <div>
-            <VidContainer data={data?.videos} title="Videos" />
+            <VidContainer 
+            data={data} 
+            title="Videos" 
+            handleFetchDataNextPage={handleFetchDataNextPage}
+            />
         </div>
     )
 }

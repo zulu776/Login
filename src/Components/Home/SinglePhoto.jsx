@@ -23,7 +23,7 @@ const SinglePhoto = ({ data, isFavData }) => {
       dispatch(handleAddFavDataAction(data, isFavData));
     };
 
-    console.log(modal)
+    
 
     return (
       <figure>

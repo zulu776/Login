@@ -10,6 +10,8 @@ import Images from "../view/Images/Images";
 import VideosRandom from '../view/VideosRandom/VideosRandom';
 import VideosSearch from '../view/VideosSearch/VideosSearch';
 import ProfileInfo from '../view/ProfileInfo/ProfileInfo';
+import FavImg from "../view/FavImg/FavImg";
+import FavVid from "../view/FavVid/FavVid"
 
 //Firebase
 import { firebase } from "../firebase/firebase.config"
@@ -84,8 +86,8 @@ const Mainlayout = ({children}) => {
                     <SubMenu key="sub3" icon={<UserOutlined />} title="Account">
                         <Menu.Item key="5"><Link to="/ProfileInfo">Profile Information</Link></Menu.Item>
                         <SubMenu key="sub4" icon={<HeartOutlined />} title="Favorites">
-                            <Menu.Item key="6">Images</Menu.Item>
-                            <Menu.Item key="7">Videos</Menu.Item>
+                            <Menu.Item key="6"><Link to="/FavImg">Images</Link></Menu.Item>
+                            <Menu.Item key="7"><Link to="/FavVid">Videos</Link></Menu.Item>
                         </SubMenu>
                     </SubMenu>
 
@@ -197,6 +199,34 @@ const Mainlayout = ({children}) => {
                             isInSession ? (
                             <>
                                 <ProfileInfo />
+                            </>
+                            ) : (
+                            <Redirect to="/login" />
+                            )
+                        }
+                    />
+
+                    <Route
+                        exact
+                        path="/FavImg"
+                        render={() =>
+                            isInSession ? (
+                            <>
+                                <FavImg />
+                            </>
+                            ) : (
+                            <Redirect to="/login" />
+                            )
+                        }
+                    />
+
+                    <Route
+                        exact
+                        path="/FavVid"
+                        render={() =>
+                            isInSession ? (
+                            <>
+                                <FavVid />
                             </>
                             ) : (
                             <Redirect to="/login" />
